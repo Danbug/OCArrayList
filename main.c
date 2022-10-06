@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
 
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
@@ -23,12 +24,12 @@ void expand(){
 //	realloc(arrList.array,arrList.capacity);
 }
 
-int get(int index){
-	if(index < 0 || index >= arrList.size){
-		return INT_MIN;
-	}
-	return arrList.array[index];
-}
+// int get(int index){
+// 	if(index < 0 || index >= arrList.size){
+// 		return INT_MIN;
+// 	}
+// 	return arrList.array[index];
+// }
 
 void insert(int index,int item){
 	
@@ -112,20 +113,81 @@ void initArrayList(){
 
 int main(int argc, char *argv[]) {
 	initArrayList();
-	for(int i = 0 ; i < 10 ; i++){
-		add(i);
+	int menu = 1;
+	while(menu != 0){
+		printf("1 - Print ArrayList\n");
+		printf("2 - Add\n");
+		printf("3 - Insert\n");
+		printf("4 - Size\n");
+		printf("5 - Remove\n");
+		printf("6 - Set\n");
+		printf("7 - Get\n");
+		printf("0 - Exit\n");
+		printf("Enter: ");
+		scanf("%d",&menu);
+		switch (menu)
+		{
+		case 1:{
+			printArrayList();
+			break;
+		}
+		case 2:{
+			printf("Enter int that you want to add : ");
+			int toAdd = 0;
+			scanf("%d",&toAdd);
+			add(toAdd);
+			break;
+		}
+		case 3:{
+			printf("Enter index where you want to place your item : ");
+			int index = 0;
+			scanf("%d",&index);
+			printf("Enter int that you want to add : ");
+			int item = 0;	
+			scanf("%d",&item);					
+			insert(index,item);
+			break;
+		}
+		case 4:{
+			printf("Size = %d\n", size());
+			break;
+		}
+		case 5:{
+			printf("Enter index to remove: ");
+			int index = 0;
+			scanf("%d", &index);
+			removeFromArrList(index);
+			break;
+		}
+		case 6:{
+			printf("Enter index where you want to replace your item : ");
+			int index = 0;
+			scanf("%d",&index);
+			printf("Enter int that you want to add : ");
+			int item = 0;	
+			scanf("%d",&item);					
+			set(index,item);
+			break;
+		}
+		case 7:{
+			printf("Enter index that you want to recieve : ");
+			int index = 0;
+			scanf("%d",&index);
+			printf("Recieved = %d ",get(index));
+			break;
+		}		
+		case 0:{
+			printf("GoodBye!\n\n");
+			break;
+		}			
+		
+		default:{
+			printf("Unkwnown input!\n");
+			break;
+		}
+			
+		}
 	}
-	
-	printArrayList();
-	
-	removeFromArrList(8);
-	
-	printArrayList();
-	
-	set(0,16);
-	set(5, 15);
-	
-	printArrayList();
 	
 	free(arrList.array);
 	return 0;
